@@ -20,8 +20,8 @@
           {
             "group": "Bắt đầu nhanh",
             "pages": [
-              "bat-dau-nhanh/README",
-              "bat-dau-nhanh/bien-moi-truong"
+              "cai-dat/README",
+              "cai-dat/bien-moi-truong"
             ]
           },
           {
@@ -35,7 +35,7 @@
           },
           {
             "group": "Hướng dẫn đóng góp",
-            "pages": ["huong-dan-dong-gop/README"]
+            "pages": ["dong-gop/README"]
           },
           {
             "group": "Liên hệ / Hỗ trợ",
