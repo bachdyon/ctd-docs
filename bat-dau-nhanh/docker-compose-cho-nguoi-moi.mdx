@@ -1,0 +1,80 @@
+---
+title: "Docker Compose (người mới)"
+description: "Chạy stack đầy đủ với Docker Compose."
+---
+
+## 1) Bạn sẽ có gì sau khi chạy?
+
+- MongoDB (lưu dữ liệu)
+- Redis (cache)
+- RabbitMQ (queue)
+- Qdrant (vector DB)
+- API backend (Flask) — nếu được bật trong compose
+- Frontend — nếu được bật trong compose
+
+## 2) Cài đặt trước
+
+1. Cài Docker Desktop.
+2. Mở Docker Desktop và đảm bảo trạng thái đang chạy.
+3. Mở terminal tại thư mục dự án.
+
+## 3) Tạo file `.env`
+
+Sao chép từ file mẫu:
+
+```bash
+cp .env.example .env
+```
+
+Điền `SECRET_KEY`, `JWT_SECRET_KEY`, URI Mongo/Redis/RabbitMQ/Qdrant theo môi trường (xem `.env.example`).
+
+## 4) Chạy hệ thống
+
+```bash
+docker compose up -d --build
+```
+
+## 5) Kiểm tra dịch vụ
+
+```bash
+docker compose ps
+```
+
+Kỳ vọng: các service đều có trạng thái `running`.
+
+## 6) Truy cập ứng dụng
+
+- Frontend: `http://localhost:8080` (hoặc cổng bạn cấu hình)
+- API health: `http://localhost:15000/health`
+
+## 7) Xem log khi gặp lỗi
+
+```bash
+docker compose logs -f api
+docker compose logs -f frontend
+```
+
+## 8) Dừng hệ thống
+
+```bash
+docker compose down
+```
+
+Nếu muốn xóa luôn dữ liệu volumes:
+
+```bash
+docker compose down -v
+```
+
+## 9) FAQ nhanh
+
+### Q1: Không vào được frontend?
+- Kiểm tra cổng `8080` có bị app khác chiếm không.
+- Chạy lại `docker compose ps` để xác minh container `frontend` đang running.
+
+### Q2: API health báo lỗi?
+- Chờ thêm 10-30 giây để MongoDB khởi tạo.
+- Kiểm tra log API: `docker compose logs -f api`.
+
+### Q3: Đăng ký xong không thấy email?
+- Bản open source **không gửi email**. Sau đăng ký bạn được đăng nhập trực tiếp (API trả `access_token`).

@@ -1,0 +1,20 @@
+---
+title: "Cấu hình feature flags"
+description: "Biến môi trường giới hạn và tinh chỉnh khi self-host."
+---
+
+## Mục tiêu
+
+Mô tả các biến môi trường dùng để giới hạn hoặc tinh chỉnh hành vi khi self-host.
+
+(Thanh toán / PayOS đã gỡ khỏi codebase; không còn flag liên quan.)
+
+**Gửi email / xác thực qua email / quên mật khẩu qua email đã được gỡ hoàn toàn** khỏi bản open source: đăng ký trả `access_token` ngay, đổi mật khẩu qua API quản trị hoặc khi đã đăng nhập (nếu có).
+
+## Danh sách flags (rút gọn)
+
+Các giới hạn như `MAX_USER_REGISTRATION`, `PLATFORM_SOURCE_LIMIT`, v.v. xem trong `.env.example` và `settings.py`.
+
+## Lưu ý
+
+- Điều chỉnh flag phù hợp môi trường demo vs production.

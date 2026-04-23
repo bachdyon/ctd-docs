@@ -1,0 +1,41 @@
+---
+title: "Hướng dẫn đóng góp"
+description: "Fork, branch, PR và quy ước cho contributor."
+---
+
+Cảm ơn bạn đã muốn đóng góp cho dự án.
+
+## 1) Chuẩn bị môi trường dev
+
+- Fork repository và clone về máy.
+- Tạo branch mới từ branch chính.
+- Chạy dự án bằng Docker Compose để đồng nhất môi trường.
+
+## 2) Quy ước làm việc
+
+- Viết commit message rõ ràng, ngắn gọn theo dạng:
+  - `feat: ...`
+  - `fix: ...`
+  - `docs: ...`
+  - `refactor: ...`
+- Ưu tiên thay đổi nhỏ, dễ review.
+- Không trộn nhiều loại thay đổi lớn trong cùng một PR.
+
+## 3) Trước khi mở Pull Request
+
+- Rebase/sync với branch mới nhất.
+- Tự kiểm tra chức năng bị ảnh hưởng.
+- Đảm bảo docs liên quan đã cập nhật nếu behavior thay đổi.
+
+## 4) Nội dung Pull Request nên có
+
+- **Mục tiêu thay đổi**
+- **Phạm vi ảnh hưởng**
+- **Cách kiểm tra (test steps)**
+- **Ghi chú migration/config** (nếu có)
+
+## 5) Gợi ý review hiệu quả
+
+- Một PR chỉ tập trung một vấn đề chính.
+- Thêm ảnh/chụp màn hình khi thay đổi UI.
+- Gắn link issue liên quan để dễ truy vết.

@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "ContentTuDong",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
@@ -11,59 +11,36 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Tài liệu",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Bắt đầu nhanh",
             "pages": [
               "index",
-              "quickstart",
-              "development"
+              "bat-dau-nhanh/cai-dat-desktop",
+              "bat-dau-nhanh/docker-va-env",
+              "bat-dau-nhanh/open-source-tong-quan",
+              "bat-dau-nhanh/kiem-tra-bao-mat",
+              "bat-dau-nhanh/cau-hinh-feature-flags",
+              "bat-dau-nhanh/docker-compose-cho-nguoi-moi"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Hướng dẫn sử dụng",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "huong-dan-su-dung/README",
+              "huong-dan-su-dung/dang-nhap-va-phan-quyen",
+              "huong-dan-su-dung/chat-va-session",
+              "huong-dan-su-dung/video-va-tai-nguyen"
             ]
           },
           {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
+            "group": "Hướng dẫn đóng góp",
+            "pages": ["huong-dan-dong-gop/README"]
           },
           {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
+            "group": "Liên hệ / Hỗ trợ",
+            "pages": ["lien-he-ho-tro"]
           }
         ]
       }
@@ -71,14 +48,9 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "GitHub",
+          "href": "https://github.com/bachdyon/vtd",
+          "icon": "github"
         }
       ]
     }
@@ -90,33 +62,17 @@
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "label": "Hỗ trợ",
+        "href": "/lien-he-ho-tro"
       }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
+    ]
   },
   "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+    "options": ["copy", "view", "chatgpt", "claude"]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "github": "https://github.com/bachdyon/vtd"
     }
   }
 }

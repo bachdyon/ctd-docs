@@ -1,0 +1,21 @@
+---
+title: "Đăng nhập và phân quyền"
+description: "Đăng nhập và quyền truy cập trong hệ thống."
+---
+
+## Mục tiêu
+
+- Đăng nhập thành công vào hệ thống.
+- Hiểu quyền truy cập theo user/session.
+
+## Các bước cơ bản
+
+1. Mở `http://localhost:8080`.
+2. Đăng ký tài khoản hoặc đăng nhập bằng tài khoản có sẵn.
+3. Sau khi đăng nhập, kiểm tra các màn hình chính đã tải đúng.
+
+## Lưu ý về quyền
+
+- Session thuộc về một người dùng cụ thể.
+- Dữ liệu chia sẻ phụ thuộc vào cơ chế share/fork session.
+- API private yêu cầu token hợp lệ.
