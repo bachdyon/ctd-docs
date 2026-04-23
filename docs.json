@@ -11,32 +11,54 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Tài liệu",
+        "tab": "Bắt đầu",
         "groups": [
           {
-            "group": "Trang chủ",
-            "pages": ["index"]
-          },
-          {
-            "group": "Bắt đầu nhanh",
+            "group": "Bắt đầu",
             "pages": [
-              "cai-dat/README",
-              "cai-dat/bien-moi-truong"
+              "index",
+              "trung-bay",
+              "tinh-nang",
+              {
+                "group": "Cài đặt",
+                "pages": [
+                  "cai-dat/README",
+                  "cai-dat/bien-moi-truong"
+                ]
+              }
             ]
+          }
+        ]
+      },
+      {
+        "tab": "Hướng dẫn sử dụng",
+        "groups": [
+          {
+            "group": "Tổng quan",
+            "pages": ["huong-dan-su-dung/README"]
           },
           {
-            "group": "Hướng dẫn sử dụng",
+            "group": "Theo tính năng",
             "pages": [
-              "huong-dan-su-dung/README",
               "huong-dan-su-dung/dang-nhap-va-phan-quyen",
               "huong-dan-su-dung/chat-va-session",
               "huong-dan-su-dung/video-va-tai-nguyen"
             ]
-          },
+          }
+        ]
+      },
+      {
+        "tab": "Đóng góp / Cải tiến",
+        "groups": [
           {
-            "group": "Hướng dẫn đóng góp",
+            "group": "Đóng góp / Cải tiến",
             "pages": ["dong-gop/README"]
-          },
+          }
+        ]
+      },
+      {
+        "tab": "Liên hệ / Hỗ trợ",
+        "groups": [
           {
             "group": "Liên hệ / Hỗ trợ",
             "pages": ["lien-he-ho-tro"]
