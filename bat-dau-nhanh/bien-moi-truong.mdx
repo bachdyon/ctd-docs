@@ -1,0 +1,120 @@
+---
+title: "Biến môi trường"
+description: "Danh sách biến .env chính và ý nghĩa (tham chiếu .env.example trong repo)."
+---
+
+Giá trị mặc định / tên biến lấy theo [`.env.example`](https://github.com/bachdyon/vtd/blob/main/.env.example) trên repo. **Không commit file `.env`** thật.
+
+## Core
+
+| Biến | Ý nghĩa |
+|------|---------|
+| `APP_MODE` | `web` (mặc định) hoặc `desktop` — ảnh hưởng cách load `.env.desktop` trong code. |
+| `PORT` | Cổng HTTP của Flask API khi chạy `python -m api.main`. |
+| `DEBUG_MODE` | `true`/`false` — chế độ debug API. |
+
+## Bảo mật & tài khoản gốc
+
+| Biến | Ý nghĩa |
+|------|---------|
+| `SECRET_KEY` | Secret Flask / ký session (bắt buộc đổi trên môi trường thật). |
+| `JWT_SECRET_KEY` | Ký JWT đăng nhập (bắt buộc đổi). |
+| `ACCESS_TOKEN_EXPIRES_DAYS` | (Tùy chọn) Thời hạn token, mặc định trong code. |
+| `MAGIC_TOKEN_LIFE_TIME_IN_MINS` | (Tùy chọn) Thời gian sống magic link nếu có dùng. |
+| `BUILT_IN_API_KEYS` | (Tùy chọn) Danh sách API key tích hợp sẵn, cách nhau bởi dấu phẩy. |
+| `ROOT_PWD` | Mật khẩu gốc / admin bootstrap (đổi khỏi giá trị mẫu). |
+| `PROVIDER_KEY_ENCRYPTION_KEY` | (Tùy chọn) Khóa Fernet base64 để mã hóa provider keys. |
+| `ROOT_USER_EMAIL` / `ROOT_USER_PASSWORD` / `ROOT_USER_ID` | Thông tin user root khởi tạo (theo script setup). |
+
+## Cơ sở dữ liệu
+
+| Biến | Ý nghĩa |
+|------|---------|
+| `MONGO_URI` | Chuỗi kết nối MongoDB. Trong Docker nội bộ: `mongodb://mongo:27017`. Trên host: `mongodb://localhost:27017`. |
+| `DATABASE_NAME` | Tên database. |
+| `MONGO_URI_OLD` / `DATABASE_NAME_OLD` | Chỉ dùng khi migrate dữ liệu. |
+
+## Redis, hàng đợi, vector
+
+| Biến | Ý nghĩa |
+|------|---------|
+| `REDIS_URL` | Redis cho cache / rate limit (server mode). |
+| `RABBITMQ_URL` | AMQP (ví dụ `amqp://guest:guest@localhost:5672/`). |
+| `QDRANT_URL` | URL Qdrant HTTP API. |
+| `QDRANT_API_KEY` | (Tùy chọn) Nếu Qdrant bật xác thực. |
+| `QDRANT_BACKEND` | `server` hoặc chế độ local trong code. |
+| `QDRANT_STORAGE_PATH` | Đường dẫn lưu Qdrant embedded nếu dùng. |
+| `CACHE_BACKEND` | Ví dụ `redis` hoặc backend khác theo code. |
+| `DISKCACHE_DIR` | Thư mục cache dạng disk nếu dùng. |
+
+## URL công khai & CORS
+
+| Biến | Ý nghĩa |
+|------|---------|
+| `API_HOST` | URL gốc API (dùng trong link tuyệt đối, tích hợp). |
+| `WEBSITE_URL` | URL frontend / website (CORS, redirect). |
+| `CORS_ORIGINS` | (Tùy chọn) Danh sách origin được phép, cách nhau dấu phẩy. |
+| `SERVICE_NAME` / `APP_NAME` | Tên hiển thị / branding trong app. |
+
+## Worker & đường dẫn file
+
+| Biến | Ý nghĩa |
+|------|---------|
+| `VIDEO_TU_DONG_API_URL` | URL service video tự động (môi trường dev thường `http://localhost:5000` hoặc theo bạn cấu hình). |
+| `UPLOAD_FOLDER` / `GENERATED_FOLDER` | Thư mục upload và file generate. |
+| `VIDEO_AUTO_WORKING_DIR` / `VIDEO_AGENT_TEMP_DIR` | Thư mục tạm xử lý video/agent. |
+
+## Lưu trữ (local / R2)
+
+| Biến | Ý nghĩa |
+|------|---------|
+| `STORAGE` / `FILE_STORAGE_BACKEND` | `local` hoặc cấu hình tương đương. |
+| `LOCAL_FILE_BASE_URL` | Base URL phục vụ file local. |
+| `CLOUDFLARE_R2_*` | Account, key, bucket, domain R2 nếu dùng object storage. |
+| `MAX_FILE_SIZE` / `STORAGE_PRICE_PER_GB` | Giới hạn kích thước / hiển thị giá (nếu có). |
+
+## Giới hạn & lập lịch (feature flags số)
+
+| Biến | Ý nghĩa |
+|------|---------|
+| `MAX_USER_REGISTRATION` | Giới hạn số user đăng ký. |
+| `TEMPLATE_SCHEDULER_DELAY_TIME` | Trễ scheduler template (giây). |
+| `TIME_SPACE` / `PLATFORM_SOURCE_LIMIT` / `MAX_PROMPTS_PER_USER` | Giới hạn nền tảng / prompt theo user. |
+
+## AI & tìm kiếm
+
+| Biến | Ý nghĩa |
+|------|---------|
+| `OPENAI_API_KEY` | OpenAI (bắt buộc cho nhiều luồng AI). |
+| `REPLICATE_API_TOKEN` | Replicate. |
+| `SERPAPI_IMAGES_PER_QUERY` | Giới hạn ảnh SerpAPI mỗi query. |
+| `GEMINI_MODEL_FAST` / `GEMINI_MODEL_HIGH_QUALITY` | Tên model Gemini nếu dùng. |
+
+## Hàng đợi / Kafka (tùy biến sâu)
+
+| Biến | Ý nghĩa |
+|------|---------|
+| `GENERATE_IMAGE_QUEUE` / `GENERATE_VIDEO_QUEUE` | Tên queue ảnh/video. |
+| `KAFKA_TOPIC_ESTIMATING_PREFIX` / `KAFKA_VISION_TASK_TOPIC` | Topic Kafka liên quan ước lượng/vision. |
+
+## Chat
+
+| Biến | Ý nghĩa |
+|------|---------|
+| `NUM_CHAT_EXCHANGE_CONTEXT` | Số lượng ngữ cảnh trao đổi. |
+| `ENABLE_CHAT_MEMORY` | Bật/tắt bộ nhớ chat. |
+| `MAX_TOKENS_SESSION_CONTEXT_EST` | Giới hạn token ngữ cảnh session. |
+
+## Frontend (Vite) {#frontend-vite}
+
+Đặt trong **`frontend/.env`** hoặc **`frontend/.env.local`** (Vite không đọc `.env` ở root).
+
+| Biến | Ý nghĩa |
+|------|---------|
+| `VITE_API_BASE_URL` | URL backend (ví dụ `http://127.0.0.1:15000`). |
+| `VITE_API_TIMEOUT` | Timeout request (ms). |
+
+## Ghi chú
+
+- Email / SMTP đã **gỡ** khỏi bản open source; không còn biến gửi mail.
+- Sau khi đổi biến quan trọng, **restart API và worker**.

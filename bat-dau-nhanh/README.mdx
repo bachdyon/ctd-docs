@@ -1,0 +1,62 @@
+---
+title: "Bắt đầu nhanh"
+description: "Chạy Open Source tối thiểu: Docker hạ tầng + API + worker + frontend."
+---
+
+## 1. Clone & môi trường
+
+```bash
+git clone https://github.com/bachdyon/vtd.git
+cd vtd
+cp .env.example .env
+```
+
+Chỉnh **tối thiểu** trong `.env`: `SECRET_KEY`, `JWT_SECRET_KEY`, và các URL Mongo/Redis/RabbitMQ/Qdrant (xem [Biến môi trường](/bat-dau-nhanh/bien-moi-truong)).
+
+## 2. Hạ tầng (Docker)
+
+```bash
+docker compose up -d
+```
+
+Compose mặc định: **MongoDB, Redis, RabbitMQ, Qdrant** (map ra `localhost`). Nếu chạy API trên máy, dùng URI dạng `mongodb://localhost:27017`, `redis://localhost:6379`, v.v.
+
+## 3. Python API
+
+```bash
+python -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install -r api/requirements.txt
+python -m api.main
+```
+
+API lắng nghe cổng **`PORT` trong `.env`** (ví dụ `15000`). Kiểm tra: `curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:15000/health` (đổi cổng nếu bạn đặt khác).
+
+## 4. Worker chat (bắt buộc cho nhiều tác vụ nền)
+
+Cửa sổ terminal mới, cùng venv:
+
+```bash
+cd vtd
+source .venv/bin/activate
+python workers/chats/chat_worker.py
+```
+
+## 5. Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Tạo `frontend/.env` hoặc `.env.local` với `VITE_API_BASE_URL` trỏ đúng URL API (ví dụ `http://127.0.0.1:15000`). Chi tiết trong [Biến môi trường — Frontend](/bat-dau-nhanh/bien-moi-truong#frontend-vite).
+
+## 6. Đăng nhập lần đầu
+
+Đăng ký tài khoản trên UI — bản open source **không gửi email**; sau đăng ký bạn nhận token và đăng nhập luôn.
+
+## Gợi ý thêm
+
+- Cài đặt đầy đủ hơn (Python/Node/Rust, Remotion, v.v.): xem `SETUP.md` trong repo mã nguồn.
+- App desktop macOS (DMG): không nằm trong luồng Open Source này; dùng bản cài từ kênh phát hành của bạn nếu có.

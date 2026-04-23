@@ -14,15 +14,14 @@
         "tab": "Tài liệu",
         "groups": [
           {
+            "group": "Trang chủ",
+            "pages": ["index"]
+          },
+          {
             "group": "Bắt đầu nhanh",
             "pages": [
-              "index",
-              "bat-dau-nhanh/cai-dat-desktop",
-              "bat-dau-nhanh/docker-va-env",
-              "bat-dau-nhanh/open-source-tong-quan",
-              "bat-dau-nhanh/kiem-tra-bao-mat",
-              "bat-dau-nhanh/cau-hinh-feature-flags",
-              "bat-dau-nhanh/docker-compose-cho-nguoi-moi"
+              "bat-dau-nhanh/README",
+              "bat-dau-nhanh/bien-moi-truong"
             ]
           },
           {
