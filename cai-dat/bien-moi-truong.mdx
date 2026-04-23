@@ -5,114 +5,129 @@ description: "Danh sách biến .env chính và ý nghĩa (tham chiếu .env.exa
 
 Giá trị mặc định / tên biến lấy theo [`.env.example`](https://github.com/bachdyon/vtd/blob/main/.env.example) trên repo. **Không commit file `.env`** thật.
 
+Cột **Bắt buộc / tùy chọn** hiển thị <strong>[Bắt buộc]</strong> hoặc <strong>[Tùy chọn]</strong>; dòng dưới là lý do (<small>chữ nhỏ</small>).
+
 ## Core
 
-| Biến | Ý nghĩa |
-|------|---------|
-| `APP_MODE` | `web` (mặc định) hoặc `desktop` — ảnh hưởng cách load `.env.desktop` trong code. |
-| `PORT` | Cổng HTTP của Flask API khi chạy `python -m api.main`. |
-| `DEBUG_MODE` | `true`/`false` — chế độ debug API. |
+| Biến | Ý nghĩa | Bắt buộc / tùy chọn |
+|------|---------|---------------------|
+| `APP_MODE` | `web` (mặc định) hoặc `desktop` — ảnh hưởng cách load `.env.desktop` trong code. | <strong>[Tùy chọn]</strong><br /><small>Mặc định `web` nếu không set.</small> |
+| `PORT` | Cổng HTTP của Flask API khi chạy `python -m api.main`. | <strong>[Tùy chọn]</strong><br /><small>Có giá trị mặc định trong code (ví dụ dev).</small> |
+| `DEBUG_MODE` | `true`/`false` — chế độ debug API. | <strong>[Tùy chọn]</strong><br /><small>Prod nên `false`.</small> |
 
 ## Bảo mật & tài khoản gốc
 
-| Biến | Ý nghĩa |
-|------|---------|
-| `SECRET_KEY` | Secret Flask / ký session (bắt buộc đổi trên môi trường thật). |
-| `JWT_SECRET_KEY` | Ký JWT đăng nhập (bắt buộc đổi). |
-| `ACCESS_TOKEN_EXPIRES_DAYS` | (Tùy chọn) Thời hạn token, mặc định trong code. |
-| `MAGIC_TOKEN_LIFE_TIME_IN_MINS` | (Tùy chọn) Thời gian sống magic link nếu có dùng. |
-| `BUILT_IN_API_KEYS` | (Tùy chọn) Danh sách API key tích hợp sẵn, cách nhau bởi dấu phẩy. |
-| `ROOT_PWD` | Mật khẩu gốc / admin bootstrap (đổi khỏi giá trị mẫu). |
-| `PROVIDER_KEY_ENCRYPTION_KEY` | (Tùy chọn) Khóa Fernet base64 để mã hóa provider keys. |
-| `ROOT_USER_EMAIL` / `ROOT_USER_PASSWORD` / `ROOT_USER_ID` | Thông tin user root khởi tạo (theo script setup). |
+| Biến | Ý nghĩa | Bắt buộc / tùy chọn |
+|------|---------|---------------------|
+| `SECRET_KEY` | Secret Flask / ký session (bắt buộc đổi trên môi trường thật). | <strong>[Bắt buộc]</strong><br /><small>Trên production / môi trường công khai. Dev có thể chạy bằng fallback trong code nhưng không an toàn.</small> |
+| `JWT_SECRET_KEY` | Ký JWT đăng nhập (bắt buộc đổi). | <strong>[Bắt buộc]</strong><br /><small>Cùng nguyên tắc với `SECRET_KEY`.</small> |
+| `ACCESS_TOKEN_EXPIRES_DAYS` | (Tùy chọn) Thời hạn token, mặc định trong code. | <strong>[Tùy chọn]</strong> |
+| `MAGIC_TOKEN_LIFE_TIME_IN_MINS` | (Tùy chọn) Thời gian sống magic link nếu có dùng. | <strong>[Tùy chọn]</strong><br /><small>Chỉ khi tính năng magic link bật.</small> |
+| `BUILT_IN_API_KEYS` | (Tùy chọn) Danh sách API key tích hợp sẵn, cách nhau bởi dấu phẩy. | <strong>[Tùy chọn]</strong> |
+| `ROOT_PWD` | Mật khẩu gốc / admin bootstrap (đổi khỏi giá trị mẫu). | <strong>[Bắt buộc]</strong><br /><small>Khi triển khai thật; đổi khỏi mặc định mẫu.</small> |
+| `PROVIDER_KEY_ENCRYPTION_KEY` | (Tùy chọn) Khóa Fernet base64 để mã hóa provider keys. | <strong>[Tùy chọn]</strong><br /><small>Bắt buộc nếu bạn dùng mã hóa key provider theo code.</small> |
+| `ROOT_USER_EMAIL` / `ROOT_USER_PASSWORD` / `ROOT_USER_ID` | Thông tin user root khởi tạo (theo script setup). | <strong>[Tùy chọn]</strong><br /><small>Tùy quy trình bootstrap / seed ban đầu.</small> |
 
 ## Cơ sở dữ liệu
 
-| Biến | Ý nghĩa |
-|------|---------|
-| `MONGO_URI` | Chuỗi kết nối MongoDB. Trong Docker nội bộ: `mongodb://mongo:27017`. Trên host: `mongodb://localhost:27017`. |
-| `DATABASE_NAME` | Tên database. |
-| `MONGO_URI_OLD` / `DATABASE_NAME_OLD` | Chỉ dùng khi migrate dữ liệu. |
+| Biến | Ý nghĩa | Bắt buộc / tùy chọn |
+|------|---------|---------------------|
+| `MONGO_URI` | Chuỗi kết nối MongoDB. Trong Docker nội bộ: `mongodb://mongo:27017`. Trên host: `mongodb://localhost:27017`. | <strong>[Bắt buộc]</strong><br /><small>Khi chạy API/worker cần DB (hầu hết mọi môi trường).</small> |
+| `DATABASE_NAME` | Tên database. | <strong>[Bắt buộc]</strong><br /><small>Cùng lúc với Mongo.</small> |
+| `MONGO_URI_OLD` / `DATABASE_NAME_OLD` | Chỉ dùng khi migrate dữ liệu. | <strong>[Tùy chọn]</strong><br /><small>Chỉ trong phiên migrate.</small> |
 
 ## Redis, hàng đợi, vector
 
-| Biến | Ý nghĩa |
-|------|---------|
-| `REDIS_URL` | Redis cho cache / rate limit (server mode). |
-| `RABBITMQ_URL` | AMQP (ví dụ `amqp://guest:guest@localhost:5672/`). |
-| `QDRANT_URL` | URL Qdrant HTTP API. |
-| `QDRANT_API_KEY` | (Tùy chọn) Nếu Qdrant bật xác thực. |
-| `QDRANT_BACKEND` | `server` hoặc chế độ local trong code. |
-| `QDRANT_STORAGE_PATH` | Đường dẫn lưu Qdrant embedded nếu dùng. |
-| `CACHE_BACKEND` | Ví dụ `redis` hoặc backend khác theo code. |
-| `DISKCACHE_DIR` | Thư mục cache dạng disk nếu dùng. |
+| Biến | Ý nghĩa | Bắt buộc / tùy chọn |
+|------|---------|---------------------|
+| `REDIS_URL` | Redis cho cache / rate limit (server mode). | <strong>[Bắt buộc]</strong><br /><small>Khi stack dùng Redis theo cấu hình mặc định (cache, worker…).</small> |
+| `RABBITMQ_URL` | AMQP (ví dụ `amqp://guest:guest@localhost:5672/`). | <strong>[Bắt buộc]</strong><br /><small>Khi worker / hàng đợi cần RabbitMQ.</small> |
+| `QDRANT_URL` | URL Qdrant HTTP API. | <strong>[Bắt buộc]</strong><br /><small>Khi bật tính năng vector search với Qdrant server.</small> |
+| `QDRANT_API_KEY` | (Tùy chọn) Nếu Qdrant bật xác thực. | <strong>[Tùy chọn]</strong><br /><small>Bắt buộc khi cluster Qdrant yêu cầu API key.</small> |
+| `QDRANT_BACKEND` | `server` hoặc chế độ local trong code. | <strong>[Tùy chọn]</strong><br /><small>Chọn embedded vs server.</small> |
+| `QDRANT_STORAGE_PATH` | Đường dẫn lưu Qdrant embedded nếu dùng. | <strong>[Tùy chọn]</strong><br /><small>Bắt buộc khi `QDRANT_BACKEND` dùng embedded/local path.</small> |
+| `CACHE_BACKEND` | Ví dụ `redis` hoặc backend khác theo code. | <strong>[Tùy chọn]</strong> |
+| `DISKCACHE_DIR` | Thư mục cache dạng disk nếu dùng. | <strong>[Tùy chọn]</strong> |
 
 ## URL công khai & CORS
 
-| Biến | Ý nghĩa |
-|------|---------|
-| `API_HOST` | URL gốc API (dùng trong link tuyệt đối, tích hợp). |
-| `WEBSITE_URL` | URL frontend / website (CORS, redirect). |
-| `CORS_ORIGINS` | (Tùy chọn) Danh sách origin được phép, cách nhau dấu phẩy. |
-| `SERVICE_NAME` / `APP_NAME` | Tên hiển thị / branding trong app. |
+| Biến | Ý nghĩa | Bắt buộc / tùy chọn |
+|------|---------|---------------------|
+| `API_HOST` | URL gốc API (dùng trong link tuyệt đối, tích hợp). | <strong>[Bắt buộc]</strong><br /><small>Trên deploy có domain công khai; dev có thể dùng mặc định trong settings.</small> |
+| `WEBSITE_URL` | URL frontend / website (CORS, redirect). | <strong>[Bắt buộc]</strong><br /><small>Trên deploy đầy đủ; local thường `http://localhost:5173`.</small> |
+| `CORS_ORIGINS` | (Tùy chọn) Danh sách origin được phép, cách nhau dấu phẩy. | <strong>[Tùy chọn]</strong><br /><small>Bắt buộc khi cần origin bổ sung ngoài `WEBSITE_URL`.</small> |
+| `SERVICE_NAME` / `APP_NAME` | Tên hiển thị / branding trong app. | <strong>[Tùy chọn]</strong><br /><small>Có mặc định trong code.</small> |
 
 ## Worker & đường dẫn file
 
-| Biến | Ý nghĩa |
-|------|---------|
-| `VIDEO_TU_DONG_API_URL` | URL API ContentTuDong (môi trường dev thường `http://localhost:5000` hoặc theo bạn cấu hình). |
-| `UPLOAD_FOLDER` / `GENERATED_FOLDER` | Thư mục upload và file generate. |
-| `VIDEO_AUTO_WORKING_DIR` / `VIDEO_AGENT_TEMP_DIR` | Thư mục tạm xử lý video/agent. |
+| Biến | Ý nghĩa | Bắt buộc / tùy chọn |
+|------|---------|---------------------|
+| `VIDEO_TU_DONG_API_URL` | URL API ContentTuDong (môi trường dev thường `http://localhost:5000` hoặc theo bạn cấu hình). | <strong>[Bắt buộc]</strong><br /><small>Khi chạy worker/video tích hợp gọi API.</small> |
+| `UPLOAD_FOLDER` / `GENERATED_FOLDER` | Thư mục upload và file generate. Video agent cũng ghi file tạm dưới `GENERATED_FOLDER` — xem [cấu trúc thư mục video agent](#video-agent-generated-layout). | <strong>[Tùy chọn]</strong><br /><small>Có mặc định tương đối trong repo; đổi khi cần ổ/volume riêng.</small> |
+
+### Video agent — cấu trúc dưới GENERATED_FOLDER {#video-agent-generated-layout}
+
+Code: `workers/videos/agent/file_manager.py`. Mỗi **job** có `job_id` (Mongo id dạng chuỗi). File tạm nằm tại:
+
+```text
+{GENERATED_FOLDER}/images/{job_id}/<file>
+{GENERATED_FOLDER}/videos/{job_id}/<file>
+```
+
+Tham số `asset_type` trong code chỉ để chọn nhánh **images** (nhóm ảnh) hay **videos** (voice, transcript, video, …); **không** bắt buộc có thư mục con `{asset_type}/` — file nằm trực tiếp dưới `{job_id}/`.
+
+Khi pipeline xong, `cleanup()` xóa cả `.../images/{job_id}` và `.../videos/{job_id}` nếu tồn tại.
 
 ## Lưu trữ (local / R2)
 
-| Biến | Ý nghĩa |
-|------|---------|
-| `STORAGE` / `FILE_STORAGE_BACKEND` | `local` hoặc cấu hình tương đương. |
-| `LOCAL_FILE_BASE_URL` | Base URL phục vụ file local. |
-| `CLOUDFLARE_R2_*` | Account, key, bucket, domain R2 nếu dùng object storage. |
-| `MAX_FILE_SIZE` / `STORAGE_PRICE_PER_GB` | Giới hạn kích thước / hiển thị giá (nếu có). |
+| Biến | Ý nghĩa | Bắt buộc / tùy chọn |
+|------|---------|---------------------|
+| `STORAGE` / `FILE_STORAGE_BACKEND` | `local`, `r2`, `minio`, `s3`. MinIO: biến `MINIO_*`. S3 (AWS hoặc endpoint tùy chỉnh): `S3_*` (`S3_ENDPOINT_URL` có thể để trống khi dùng AWS). | <strong>[Tùy chọn]</strong><br /><small>Mặc định thường `local` trong open source. Bắt buộc cấu hình đúng nhánh (`R2` / `MINIO_*` / `S3_*`) khi không dùng local.</small> |
+| `LOCAL_FILE_BASE_URL` | Base URL phục vụ file local. | <strong>[Tùy chọn]</strong><br /><small>Bắt buộc khi `STORAGE=local` và cần URL tuyệt đối ổn định (không suy ra từ request).</small> |
+| `CLOUDFLARE_R2_*` | Account, key, bucket, domain R2. Tùy chọn `CLOUDFLARE_R2_ADDRESSING_STYLE` = `path` hoặc `virtual` (boto3 S3), hiếm khi cần đổi so với mặc định. | <strong>[Bắt buộc]</strong><br /><small>Khi `STORAGE=r2`: ít nhất account, key, bucket hợp lệ.</small> |
+| `MINIO_*` / `S3_*` | Cấu hình MinIO hoặc S3 khi `STORAGE=minio` / `s3`. | <strong>[Bắt buộc]</strong><br /><small>Đúng bộ biến theo từng chế độ (xem `.env.example`).</small> |
+| `MAX_FILE_SIZE` / `STORAGE_PRICE_PER_GB` | Giới hạn kích thước / hiển thị giá (nếu có). | <strong>[Tùy chọn]</strong> |
 
 ## Giới hạn & lập lịch (feature flags số)
 
-| Biến | Ý nghĩa |
-|------|---------|
-| `MAX_USER_REGISTRATION` | Giới hạn số user đăng ký. |
-| `TEMPLATE_SCHEDULER_DELAY_TIME` | Trễ scheduler template (giây). |
-| `TIME_SPACE` / `PLATFORM_SOURCE_LIMIT` / `MAX_PROMPTS_PER_USER` | Giới hạn nền tảng / prompt theo user. |
+| Biến | Ý nghĩa | Bắt buộc / tùy chọn |
+|------|---------|---------------------|
+| `MAX_USER_REGISTRATION` | Giới hạn số user đăng ký. | <strong>[Tùy chọn]</strong> |
+| `TEMPLATE_SCHEDULER_DELAY_TIME` | Trễ scheduler template (giây). | <strong>[Tùy chọn]</strong> |
+| `TIME_SPACE` / `PLATFORM_SOURCE_LIMIT` / `MAX_PROMPTS_PER_USER` | Giới hạn nền tảng / prompt theo user. | <strong>[Tùy chọn]</strong> |
 
 ## AI & tìm kiếm
 
-| Biến | Ý nghĩa |
-|------|---------|
-| `OPENAI_API_KEY` | OpenAI (bắt buộc cho nhiều luồng AI). |
-| `REPLICATE_API_TOKEN` | Replicate. |
-| `SERPAPI_IMAGES_PER_QUERY` | Giới hạn ảnh SerpAPI mỗi query. |
-| `GEMINI_MODEL_FAST` / `GEMINI_MODEL_HIGH_QUALITY` | Tên model Gemini nếu dùng. |
+| Biến | Ý nghĩa | Bắt buộc / tùy chọn |
+|------|---------|---------------------|
+| `OPENAI_API_KEY` | OpenAI (bắt buộc cho nhiều luồng AI). | <strong>[Bắt buộc]</strong><br /><small>Khi bật tính năng gọi OpenAI trong app.</small> |
+| `REPLICATE_API_TOKEN` | Replicate. | <strong>[Tùy chọn]</strong><br /><small>Bắt buộc khi dùng Replicate.</small> |
+| `SERPAPI_IMAGES_PER_QUERY` | Giới hạn ảnh SerpAPI mỗi query. | <strong>[Tùy chọn]</strong> |
+| `GEMINI_MODEL_FAST` / `GEMINI_MODEL_HIGH_QUALITY` | Tên model Gemini nếu dùng. | <strong>[Tùy chọn]</strong> |
 
 ## Hàng đợi / Kafka (tùy biến sâu)
 
-| Biến | Ý nghĩa |
-|------|---------|
-| `GENERATE_IMAGE_QUEUE` / `GENERATE_VIDEO_QUEUE` | Tên queue ảnh/video. |
-| `KAFKA_TOPIC_ESTIMATING_PREFIX` / `KAFKA_VISION_TASK_TOPIC` | Topic Kafka liên quan ước lượng/vision. |
+| Biến | Ý nghĩa | Bắt buộc / tùy chọn |
+|------|---------|---------------------|
+| `GENERATE_IMAGE_QUEUE` / `GENERATE_VIDEO_QUEUE` | Tên queue ảnh/video. | <strong>[Tùy chọn]</strong><br /><small>Bắt buộc khi cấu hình worker/queue tên cố định khác mặc định.</small> |
+| `KAFKA_TOPIC_ESTIMATING_PREFIX` / `KAFKA_VISION_TASK_TOPIC` | Topic Kafka liên quan ước lượng/vision. | <strong>[Tùy chọn]</strong><br /><small>Chỉ khi tích hợp Kafka theo code.</small> |
 
 ## Chat
 
-| Biến | Ý nghĩa |
-|------|---------|
-| `NUM_CHAT_EXCHANGE_CONTEXT` | Số lượng ngữ cảnh trao đổi. |
-| `ENABLE_CHAT_MEMORY` | Bật/tắt bộ nhớ chat. |
-| `MAX_TOKENS_SESSION_CONTEXT_EST` | Giới hạn token ngữ cảnh session. |
+| Biến | Ý nghĩa | Bắt buộc / tùy chọn |
+|------|---------|---------------------|
+| `NUM_CHAT_EXCHANGE_CONTEXT` | Số lượng ngữ cảnh trao đổi. | <strong>[Tùy chọn]</strong> |
+| `ENABLE_CHAT_MEMORY` | Bật/tắt bộ nhớ chat. | <strong>[Tùy chọn]</strong> |
+| `MAX_TOKENS_SESSION_CONTEXT_EST` | Giới hạn token ngữ cảnh session. | <strong>[Tùy chọn]</strong> |
 
 ## Frontend (Vite) {#frontend-vite}
 
 Đặt trong **`frontend/.env`** hoặc **`frontend/.env.local`** (Vite không đọc `.env` ở root).
 
-| Biến | Ý nghĩa |
-|------|---------|
-| `VITE_API_BASE_URL` | URL backend (ví dụ `http://127.0.0.1:15000`). |
-| `VITE_API_TIMEOUT` | Timeout request (ms). |
+| Biến | Ý nghĩa | Bắt buộc / tùy chọn |
+|------|---------|---------------------|
+| `VITE_API_BASE_URL` | URL backend (ví dụ `http://127.0.0.1:15000`). | <strong>[Bắt buộc]</strong><br /><small>Để frontend gọi đúng API (dev/prod).</small> |
+| `VITE_API_TIMEOUT` | Timeout request (ms). | <strong>[Tùy chọn]</strong><br /><small>Có mặc định trong code nếu không set.</small> |
 
 ## Ghi chú
 
