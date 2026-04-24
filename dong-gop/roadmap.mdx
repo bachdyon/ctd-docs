@@ -1,0 +1,85 @@
+---
+title: "Roadmap kỹ thuật"
+description: "Lộ trình triển khai các cải tiến quan trọng của hệ thống."
+---
+
+## Bối cảnh
+
+Trong một số luồng xử lý media với Gemini, hệ thống trước đây gửi URL dạng `localhost` cho model.  
+Điều này gây lỗi khi model chạy ở hạ tầng bên ngoài và không thể truy cập tài nguyên nội bộ.
+
+## Mục tiêu tổng quát
+
+- Ưu tiên cơ chế **inline-first** khi gửi media cho model.
+- Giữ `file_key` làm dữ liệu chuẩn (canonical) trong hệ thống.
+- Giảm phụ thuộc vào URL public ở môi trường local/self-host.
+- Chuẩn hóa log để dễ debug và theo dõi fallback.
+
+## Trạng thái hiện tại: Phase 1 (đã hoàn thành)
+
+### Nội dung đã triển khai
+
+- Thêm `ModelInputResolver` tại `api/utils/model_input_resolver.py`.
+  - `auto`: ưu tiên inline, fallback sang URL khi cần.
+  - `inline`: bắt buộc inline.
+  - `url`: luôn dùng URL.
+- Tích hợp inline-first vào `GeminiProvider` trong `api/utils/gemini.py` (nhánh `asset_ids`).
+- Thêm cấu hình:
+  - `MODEL_INPUT_MODE` (mặc định `auto`)
+  - `MODEL_INLINE_MAX_MB` (mặc định `15`)
+- Cập nhật docs/cấu hình mẫu:
+  - `.env.example`
+  - `docs/cai-dat/bien-moi-truong.mdx`
+
+### Tiêu chí hoàn thành Phase 1
+
+- Không còn phụ thuộc bắt buộc vào URL public trong phần lớn luồng Gemini.
+- Có log mode đầu vào: `inline` hoặc `url`.
+- Không thay đổi schema DB hiện có.
+
+## Phase 2: Mở rộng đa provider
+
+### Mục tiêu
+
+- Tổng quát hóa resolver cho các provider khác (OpenRouter/OpenAI/Claude...).
+- Tạo bảng năng lực theo provider/model:
+  - hỗ trợ inline/url
+  - giới hạn kích thước
+  - ràng buộc mime type
+
+### Deliverables
+
+- Module `provider_capabilities` để quản lý năng lực theo model.
+- Chuẩn hóa đường đi dữ liệu media cho nhiều provider.
+- Log thống nhất:
+  - `provider`
+  - `model`
+  - `input_mode`
+  - `fallback_reason`
+
+## Phase 3: Độ tin cậy & quan sát hệ thống
+
+### Mục tiêu
+
+- Đo và giám sát chất lượng luồng media-model:
+  - tỷ lệ inline vs URL
+  - tỷ lệ fallback
+  - độ trễ đọc object + gọi model
+
+### Deliverables
+
+- Metric/telemetry cho mode input.
+- Cảnh báo khi fallback tăng bất thường.
+- Bộ test integration cho các tình huống:
+  - file nhỏ (inline thành công)
+  - file lớn (fallback URL)
+  - `file_key` không tồn tại (lỗi rõ ràng)
+
+## Checklist vận hành
+
+- Restart API và worker sau khi đổi cấu hình `MODEL_INPUT_*`.
+- Theo dõi log có dòng `Gemini asset input mode=...`.
+- Chốt cấu hình theo môi trường:
+  - dev: `auto`
+  - production private storage: ưu tiên `auto`/`inline`, hạn chế `url` phụ thuộc public routing.
+

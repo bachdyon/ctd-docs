@@ -86,6 +86,8 @@ Khi pipeline xong, `cleanup()` xóa cả `.../images/{job_id}` và `.../videos/{
 | `MINIO_*` / `S3_*` | Cấu hình MinIO hoặc S3 khi `STORAGE=minio` / `s3`. | <strong>[Bắt buộc]</strong><br /><small>Đúng bộ biến theo từng chế độ (xem `.env.example`). Với MinIO nên đặt `MINIO_ADDRESSING_STYLE=path`.</small> |
 | `MINIO_AUTO_CREATE_BUCKET` | Tự tạo bucket MinIO khi API khởi động nếu bucket chưa tồn tại. | <strong>[Tùy chọn]</strong><br /><small>Mặc định `true` trong code để không cần tạo bucket bằng tay ở môi trường local/dev.</small> |
 | `MINIO_BUCKET_PUBLIC_READ` | Tự set policy public-read (`s3:GetObject`) cho bucket MinIO khi API khởi động. | <strong>[Tùy chọn]</strong><br /><small>Mặc định `true` để test nhanh. Trên production nên cân nhắc đặt `false` và dùng presigned URL.</small> |
+| `MODEL_INPUT_MODE` | Cách gửi media/file vào model: `auto` (ưu tiên inline), `inline` (bắt buộc inline), `url` (luôn dùng URL). | <strong>[Tùy chọn]</strong><br /><small>Mặc định `auto` để tránh phụ thuộc URL public/localhost cho Gemini vision.</small> |
+| `MODEL_INLINE_MAX_MB` | Giới hạn kích thước file để gửi inline (MB). | <strong>[Tùy chọn]</strong><br /><small>Mặc định `15`. Nếu file lớn hơn ngưỡng, mode `auto` sẽ fallback URL.</small> |
 | `MAX_FILE_SIZE` / `STORAGE_PRICE_PER_GB` | Giới hạn kích thước / hiển thị giá (nếu có). | <strong>[Tùy chọn]</strong> |
 
 ## Giới hạn & lập lịch (feature flags số)

@@ -52,7 +52,10 @@
         "groups": [
           {
             "group": "Đóng góp / Cải tiến",
-            "pages": ["dong-gop/README"]
+            "pages": [
+              "dong-gop/README",
+              "dong-gop/roadmap"
+            ]
           }
         ]
       },
