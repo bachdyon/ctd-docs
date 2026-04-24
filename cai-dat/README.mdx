@@ -19,7 +19,13 @@ Chỉnh **tối thiểu** trong `.env`: `SECRET_KEY`, `JWT_SECRET_KEY`, và các
 docker compose up -d
 ```
 
-Compose mặc định: **MongoDB, Redis, RabbitMQ, Qdrant** (map ra `localhost`). Nếu chạy API trên máy, dùng URI dạng `mongodb://localhost:27017`, `redis://localhost:6379`, v.v.
+Compose mặc định: **MongoDB, Redis, RabbitMQ, Qdrant, MinIO** (map ra `localhost`). Nếu chạy API trên máy, dùng URI dạng `mongodb://localhost:27017`, `redis://localhost:6379` và object storage MinIO qua `http://localhost:9000`.
+
+Với cấu hình mặc định (`STORAGE=minio`), API sẽ tự:
+- tạo bucket nếu chưa tồn tại (`MINIO_AUTO_CREATE_BUCKET=true`),
+- set policy public-read cho bucket (`MINIO_BUCKET_PUBLIC_READ=true`).
+
+Bạn không cần tạo bucket MinIO bằng tay trong môi trường local/dev.
 
 ## 3. Python API
 
