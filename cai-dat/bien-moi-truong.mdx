@@ -107,12 +107,12 @@ Khi pipeline xong, `cleanup()` xóa cả `.../images/{job_id}` và `.../videos/{
 | `SERPAPI_IMAGES_PER_QUERY` | Giới hạn ảnh SerpAPI mỗi query. | <strong>[Tùy chọn]</strong> |
 | `GEMINI_MODEL_FAST` / `GEMINI_MODEL_HIGH_QUALITY` | Tên model Gemini nếu dùng. | <strong>[Tùy chọn]</strong> |
 
-## Hàng đợi / Kafka (tùy biến sâu)
+## Hàng đợi (tùy biến sâu)
 
 | Biến | Ý nghĩa | Bắt buộc / tùy chọn |
 |------|---------|---------------------|
 | `GENERATE_IMAGE_QUEUE` / `GENERATE_VIDEO_QUEUE` | Tên queue ảnh/video. | <strong>[Tùy chọn]</strong><br /><small>Bắt buộc khi cấu hình worker/queue tên cố định khác mặc định.</small> |
-| `KAFKA_TOPIC_ESTIMATING_PREFIX` / `KAFKA_VISION_TASK_TOPIC` | Topic Kafka liên quan ước lượng/vision. | <strong>[Tùy chọn]</strong><br /><small>Chỉ khi tích hợp Kafka theo code.</small> |
+| `RMQ_QUEUE_ESTIMATING_PREFIX` / `RMQ_VISION_TASK_QUEUE` / `RMQ_VISION_QUEUE` / `RMQ_VIDEO_QUEUE` / `RMQ_ESTIMATOR_QUEUE` / `RMQ_INTERVAL_CHECKING_QUEUE` | Tên queue RabbitMQ (worker pyautovid + API). | <strong>[Tùy chọn]</strong><br /><small>Mặc định trong code nếu không set.</small> |
 
 ## Chat
 
